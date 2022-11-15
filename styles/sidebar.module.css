@@ -1,0 +1,15 @@
+.sidebar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.item {
+  padding: 5px;
+  border-bottom: 1px solid rgb(235, 232, 245);
+  width: 120px;
+  margin: 10px;
+}
+
+.item:hover {
+  cursor: pointer;
+}
