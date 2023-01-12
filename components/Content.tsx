@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CardMedia from "@mui/material/CardMedia";
@@ -16,7 +17,7 @@ import styles from "../styles/sidebar.module.css"
 
 const Content = ({ games, setGames }) => {
   const [pageNumber, setPageNumber] = useState(0);
-
+ const [loggedIn, setLoggedIn] = useState(false);
 
 
   const options = {
@@ -34,11 +35,20 @@ const Content = ({ games, setGames }) => {
       .then(function (response) {
         const allGames = response.data;
         setGames(allGames);
-        console.log(games)
       })
       .catch(function (error) {
         console.error(error);
       });
+
+      const activeUser = async () => {
+        const session = await getSession()
+        if (session) {
+          setLoggedIn(true)
+        } else {
+          loggedIn
+        }
+      }
+      activeUser()
   }, []);
 
   const gamesPerPage = 20;
@@ -77,6 +87,7 @@ const Content = ({ games, setGames }) => {
                       </Link>
                       <CardContent>
                         <Typography>{game.title}</Typography>
+                        {loggedIn ? <p>rate me</p> : null}
                       </CardContent>
                     </Card>
                   </Paper>
@@ -110,7 +121,7 @@ const Sidebar = ({ games, filterGenre }) => {
   return (
     <div className={styles.sidebar}>
       {category.map((item) => {
-        return <div onClick={()=>filterGenre(item)} className={styles.item}>{item}</div>;
+        return <div onClick={()=>filterGenre(item)} className={styles.item} key={item}>{item}</div>;
       })}
     </div>
   );

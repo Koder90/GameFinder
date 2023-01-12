@@ -3,8 +3,9 @@ import Search from '../components/Search'
 import Content from '../components/Content'
 import { useState } from 'react'
 
-export default function Home() {
+export default function Home({ loggedIn, setLoggedIn }) {
     const [games, setGames] = useState([]);
+
 
     return (
         <div>

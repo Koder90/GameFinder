@@ -12,7 +12,9 @@ const Navbar = () => {
             <ul className={styles.list}>
             <ButtonGroup variant="contained" aria-label="outlined primary button group">
       <Button>Home</Button>
-      <Link href="login"><Button>Login</Button></Link>
+      <Link href={{
+        pathname: "login",
+        }}><Button>Login</Button></Link>
       <Button>Shop</Button>
     </ButtonGroup>
             </ul>

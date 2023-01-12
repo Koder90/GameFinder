@@ -1,10 +1,11 @@
 import { NextPage } from 'next'
 import React from 'react'
 import Link from 'next/link'
-
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 const login: NextPage = () => {
+
+
   const { data: session } = useSession()
   console.log(session)
 
@@ -13,7 +14,11 @@ const login: NextPage = () => {
       <div>
         <div>
           <p>Welcome, {session.user?.email}</p>
-          <button onClick={() => signOut()}>Sign out</button>
+          <button onClick={
+            () => {
+              signOut()
+            }
+          }>Sign out</button>
           <Link href='/'>return to home page</Link>
         </div>
       </div>
