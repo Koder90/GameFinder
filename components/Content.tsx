@@ -12,6 +12,7 @@ import { Container, width } from "@mui/system";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
 import styles from "../styles/sidebar.module.css"
+import Rating from "./Rating";
 
 
 
@@ -87,7 +88,7 @@ const Content = ({ games, setGames }) => {
                       </Link>
                       <CardContent>
                         <Typography>{game.title}</Typography>
-                        {loggedIn ? <p>rate me</p> : null}
+                        {loggedIn ? <Rating /> : null}
                       </CardContent>
                     </Card>
                   </Paper>
