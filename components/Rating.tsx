@@ -11,8 +11,10 @@ const Rating = () => {
         const ratingValue = i + 1;
         return (
           <label className='label'
+          key={i}
           >
             <input
+           
              style={{display: "none"}}
               type="radio"
               name="rating"
@@ -20,6 +22,7 @@ const Rating = () => {
               onClick={() => setRating(ratingValue)}
             />
             <FaStar
+            style={{cursor:"pointer"}}
             className='star'
             color={ratingValue <= rating ? "yellow" : "gray"}
             />

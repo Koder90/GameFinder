@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CardMedia from "@mui/material/CardMedia";
+import { Button, CardActionArea } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -15,10 +16,9 @@ import styles from "../styles/sidebar.module.css"
 import Rating from "./Rating";
 
 
-
 const Content = ({ games, setGames }) => {
   const [pageNumber, setPageNumber] = useState(0);
- const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
 
   const options = {
@@ -41,15 +41,15 @@ const Content = ({ games, setGames }) => {
         console.error(error);
       });
 
-      const activeUser = async () => {
-        const session = await getSession()
-        if (session) {
-          setLoggedIn(true)
-        } else {
-          loggedIn
-        }
+    const activeUser = async () => {
+      const session = await getSession()
+      if (session) {
+        setLoggedIn(true)
+      } else {
+        loggedIn
       }
-      activeUser()
+    }
+    activeUser()
   }, []);
 
   const gamesPerPage = 20;
@@ -65,11 +65,14 @@ const Content = ({ games, setGames }) => {
       return game.genre === curItem;
     })
     setGames(result)
+    console.log(games)
   }
+
+
 
   return (
     <>
-      <Sidebar games={games} filterGenre={filterGenre} />
+      <Sidebar games={games} filterGenre={filterGenre} setGames={setGames} />
       <Container>
         <Grid container spacing={6}>
           {games
@@ -79,17 +82,19 @@ const Content = ({ games, setGames }) => {
                 <Grid item key={game.id}>
                   <Paper>
                     <Card sx={{ maxWidth: 245 }}>
-                      <Link href={"/" + game.id}>
-                        <CardMedia
-                          component="img"
-                          image={game.thumbnail}
-                          alt="green iguana"
-                        />
-                      </Link>
-                      <CardContent>
-                        <Typography>{game.title}</Typography>
-                        {loggedIn ? <Rating /> : null}
-                      </CardContent>
+                      <CardActionArea>
+                        <Link href={"/" + game.id}>
+                          <CardMedia
+                            component="img"
+                            image={game.thumbnail}
+                            alt="green iguana"
+                          />
+                        </Link>
+                        <CardContent>
+                          <Typography>{game.title}</Typography>
+                          {loggedIn ? <Rating /> : null}
+                        </CardContent>
+                      </CardActionArea>
                     </Card>
                   </Paper>
                 </Grid>
@@ -115,15 +120,25 @@ const Content = ({ games, setGames }) => {
   );
 };
 
-const Sidebar = ({ games, filterGenre }) => {
+const Sidebar = ({ games, filterGenre, setGames }) => {
   const arr = games.map((game: { genre: string }) => game.genre);
 
   const category = arr.filter((item: {}, index: string) => arr.indexOf(item) === index);
   return (
+    <div>
+
     <div className={styles.sidebar}>
       {category.map((item) => {
-        return <div onClick={()=>filterGenre(item)} className={styles.item} key={item}>{item}</div>;
+        return (
+          <div onClick={() => filterGenre(item)} className={styles.item} key={item}>{item}</div>
+        );
       })}
+    </div>
+    <Button onClick={(e) => {
+      setGames(games)
+      console.log(games)
+      console.log(e)
+      }}>show all</Button>
     </div>
   );
 };
