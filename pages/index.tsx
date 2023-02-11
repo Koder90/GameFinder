@@ -3,15 +3,16 @@ import Search from '../components/Search'
 import Content from '../components/Content'
 import { useState } from 'react'
 
-export default function Home() {
-    const [games, setGames] = useState([]);
-
+export default function Home({ games, setGames, favorites, setFavorites }) {
 
     return (
         <div>
             <Navbar />
             <Search />
-            <Content games={games} setGames={setGames} />
+            <Content favorites={favorites}
+                setFavorites={setFavorites}
+                games={games}
+                setGames={setGames} />
         </div>
     )
 }

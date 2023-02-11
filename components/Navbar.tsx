@@ -15,7 +15,7 @@ const Navbar = () => {
       <Link href={{
         pathname: "login",
         }}><Button>Login</Button></Link>
-      <Button>Shop</Button>
+      <Link href="favorites"><Button>Favorites</Button></Link>
     </ButtonGroup>
             </ul>
         </div>

@@ -1,0 +1,13 @@
+.favorites {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.header {
+  font-size: x-large;
+}
+
+.paragraph {
+  font-size: small;
+}

@@ -14,9 +14,17 @@ import ReactPaginate from "react-paginate";
 import Link from "next/link";
 import styles from "../styles/sidebar.module.css"
 import Rating from "./Rating";
+import css from "../styles/favorites.module.css"
+
+type gameProps = {
+  games: [],
+  setGames: () =>  [],
+  favorites: [],
+  setFavorites: () => void
+}
 
 
-const Content = ({ games, setGames }) => {
+const Content = ({ games, setGames, favorites, setFavorites } : gameProps) => {
   const [pageNumber, setPageNumber] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -69,15 +77,14 @@ const Content = ({ games, setGames }) => {
   }
 
 
-
   return (
     <>
-      <Sidebar games={games} filterGenre={filterGenre} setGames={setGames} />
+      <Sidebar games={games} filterGenre={filterGenre} setGames={setGames}  />
       <Container>
         <Grid container spacing={6}>
           {games
             .slice(pagesVisited, pagesVisited + gamesPerPage)
-            .map((game: { title: string; thumbnail: string; id: number }) => {
+            .map((game: { title: string; thumbnail: string; id: number; short_description: string }) => {
               return (
                 <Grid item key={game.id}>
                   <Paper>
@@ -92,7 +99,17 @@ const Content = ({ games, setGames }) => {
                         </Link>
                         <CardContent>
                           <Typography>{game.title}</Typography>
-                          {loggedIn ? <Rating /> : null}
+                          {loggedIn ?
+                           <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+                            <Rating />
+                            <button onClick={() => {
+                               setFavorites([...favorites, <div className={css.favorites}>
+                                <h3 className={css.header}>{game.title}</h3>
+                                <p className={css.paragraph}>{game.short_description}</p>
+                               </div> ])
+                              console.log(favorites);
+                              }} type="button" style={{padding:"4px", background:"black", color:"white", borderRadius:"5px"}}>Add</button>
+                            </div>  : null}
                         </CardContent>
                       </CardActionArea>
                     </Card>
@@ -120,25 +137,20 @@ const Content = ({ games, setGames }) => {
   );
 };
 
-const Sidebar = ({ games, filterGenre, setGames }) => {
+const Sidebar = ({ games, filterGenre }) => {
   const arr = games.map((game: { genre: string }) => game.genre);
 
   const category = arr.filter((item: {}, index: string) => arr.indexOf(item) === index);
   return (
     <div>
 
-    <div className={styles.sidebar}>
-      {category.map((item) => {
-        return (
-          <div onClick={() => filterGenre(item)} className={styles.item} key={item}>{item}</div>
-        );
-      })}
-    </div>
-    <Button onClick={(e) => {
-      setGames(games)
-      console.log(games)
-      console.log(e)
-      }}>show all</Button>
+      <div className={styles.sidebar}>
+        {category.map((item) => {
+          return (
+            <div onClick={() => filterGenre(item)} className={styles.item} key={item}>{item}</div>
+          );
+        })}
+      </div>
     </div>
   );
 };
