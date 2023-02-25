@@ -15,16 +15,9 @@ import Link from "next/link";
 import styles from "../styles/sidebar.module.css"
 import Rating from "./Rating";
 import css from "../styles/favorites.module.css"
+import { gameProps } from "../pages/_app";
 
-type gameProps = {
-  games: [],
-  setGames: () =>  [],
-  favorites: [],
-  setFavorites: () => void
-}
-
-
-const Content = ({ games, setGames, favorites, setFavorites } : gameProps) => {
+const Content = ({ games, setGames, favorites, setFavorites }: gameProps) => {
   const [pageNumber, setPageNumber] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -76,10 +69,9 @@ const Content = ({ games, setGames, favorites, setFavorites } : gameProps) => {
     console.log(games)
   }
 
-
   return (
     <>
-      <Sidebar games={games} filterGenre={filterGenre} setGames={setGames}  />
+      <Sidebar games={games} filterGenre={filterGenre} setGames={setGames} />
       <Container>
         <Grid container spacing={6}>
           {games
@@ -100,16 +92,16 @@ const Content = ({ games, setGames, favorites, setFavorites } : gameProps) => {
                         <CardContent>
                           <Typography>{game.title}</Typography>
                           {loggedIn ?
-                           <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                            <Rating />
-                            <button onClick={() => {
-                               setFavorites([...favorites, <div className={css.favorites}>
-                                <h3 className={css.header}>{game.title}</h3>
-                                <p className={css.paragraph}>{game.short_description}</p>
-                               </div> ])
-                              console.log(favorites);
-                              }} type="button" style={{padding:"4px", background:"black", color:"white", borderRadius:"5px"}}>Add</button>
-                            </div>  : null}
+                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                              <Rating />
+                              <Button onClick={() => {
+                                setFavorites([...favorites, <div className={css.favorites}>
+                                  <h3 className={css.header}>{game.title}</h3>
+                                  <p className={css.paragraph}>{game.short_description}</p>
+                                </div>])
+                                console.log(favorites);
+                              }} type="button" style={{ borderRadius: "5px" }}>Add</Button>
+                            </div> : null}
                         </CardContent>
                       </CardActionArea>
                     </Card>

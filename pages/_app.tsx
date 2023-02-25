@@ -4,6 +4,12 @@ import { useState } from 'react';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 
+export type gameProps = {
+  games: [{}],
+  setGames: ({}) =>  [{}],
+  favorites: [{}],
+  setFavorites: ({}) => [{}]
+}
 
 function MyApp({ Component, pageProps }) {
   const [favorites, setFavorites] = useState([]);
