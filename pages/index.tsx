@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar'
 import Search from '../components/Search'
 import Content from '../components/Content'
+import Footer from '../components/Footer'
 import { useState } from 'react'
 
 export default function Home({ games, setGames, favorites, setFavorites }) {
@@ -13,6 +14,7 @@ export default function Home({ games, setGames, favorites, setFavorites }) {
                 setFavorites={setFavorites}
                 games={games}
                 setGames={setGames} />
+            <Footer />
         </div>
     )
 }
