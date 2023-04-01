@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 import Link from 'next/link'
+import styles from "../styles/login.module.css"
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 const login: NextPage = () => {
@@ -11,15 +12,16 @@ const login: NextPage = () => {
 
   if (session) {
     return (
-      <div>
-        <div>
-          <p>Welcome, {session.user?.email}</p>
-          <button onClick={
-            () => {
-              signOut()
-            }
-          }>Sign out</button>
-          <Link href='/'>return to home page</Link>
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <h3>Welcome, {session.user?.name}!</h3>
+          <button className={styles.btn}
+            onClick={
+              () => {
+                signOut()
+              }
+            }>Sign out</button>
+          <Link href='/'>... or return to home page</Link>
         </div>
       </div>
     )

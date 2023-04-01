@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 25%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  height: 50px;
+  font-size: large;
+  width: 100px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #1976d2;
+  color: white;
+}
+
+.btn:hover{
+  cursor: pointer;
+}
+
