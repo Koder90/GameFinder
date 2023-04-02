@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         games={games}
         setGames={setGames}
       />
-      <Footer />
+      <div className='footer'><Footer /></div>
     </SessionProvider>
   )
 }
